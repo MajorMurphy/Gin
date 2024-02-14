@@ -96,6 +96,50 @@ static bool loadJPEGMetadataFromStream (juce::OwnedArray<ImageMetadata>& metadat
     return metadata.size() > 0;
 }
 
+#if JUCE_LINK_LIBHEIF_CODE
+#include <libheif/heif.h>
+#endif
+static bool loadHEIFMetadataFromStream(juce::OwnedArray<ImageMetadata>& metadata, juce::InputStream& in)
+{
+#if JUCE_LINK_LIBHEIF_CODE
+
+    juce::MemoryBlock encodedImageData(in.getNumBytesRemaining());
+    in.read(encodedImageData.getData(), encodedImageData.getSize());
+
+    heif_context* ctx = heif_context_alloc();
+    heif_context_read_from_memory_without_copy(ctx, encodedImageData.getData(), encodedImageData.getSize(), nullptr);
+
+    // get a handle to the primary image
+    heif_image_handle* handle = nullptr;
+    heif_context_get_primary_image_handle(ctx, &handle);
+
+    heif_item_id exif_id;
+
+    int n = heif_image_handle_get_list_of_metadata_block_IDs(handle, "Exif", &exif_id, 1);
+    if (n == 1) {
+        size_t exifSize = heif_image_handle_get_metadata_size(handle, exif_id);
+        uint8_t* exifData = (uint8_t*)malloc(exifSize);
+        struct heif_error error = heif_image_handle_get_metadata(handle, exif_id, exifData);
+
+        auto md = ExifMetadata::create(exifData+4, (int)exifSize-4);
+        if (md)
+            metadata.add(md);
+        free(exifData);
+    }
+
+
+    // clean up resources
+    heif_image_handle_release(handle);
+    heif_context_free(ctx);
+
+    return metadata.size() > 0;
+#else 
+    jassertfalse;
+    return false;
+#endif
+
+}
+
 //==============================================================================
 static void pngReadCallback (png_structp pngReadStruct, png_bytep data, png_size_t length)
 {
@@ -154,12 +198,20 @@ bool ImageMetadata::getFromImage (juce::InputStream& is, juce::OwnedArray<ImageM
 {
     juce::JPEGImageFormat jpeg;
     juce::PNGImageFormat png;
+    juce::HEIFImageFormat heif;
 
     is.setPosition (0);
     if (jpeg.canUnderstand (is))
     {
         is.setPosition (0);
         return loadJPEGMetadataFromStream (metadata, is);
+    }
+
+    is.setPosition(0);
+    if (heif.canUnderstand(is))
+    {
+        is.setPosition(0);
+        return loadHEIFMetadataFromStream(metadata, is);
     }
 
     is.setPosition (0);
