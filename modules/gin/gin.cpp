@@ -37,11 +37,18 @@
 
 #include "gin.h"
 
+extern "C"
+{
+#include "3rdparty/bsdiff/bsdiff.h"
+#include "3rdparty/bsdiff/bspatch.h"
+}
+
 //==============================================================================
 
 namespace gin
 {
-
+#include "utilities/gin_diff.cpp"
+#include "utilities/gin_texthistory.cpp"
 #include "utilities/gin_downloadmanager.cpp"
 #include "utilities/gin_filesystemwatcher.cpp"
 #include "utilities/gin_fileutilities.cpp"

@@ -177,7 +177,6 @@ public:
     void setShowInfo (bool);
     void setBrowseButtonState (bool s) { browseButton.setToggleState (s, juce::dontSendNotification); }
 
-protected:
     void paint (juce::Graphics& g) override;
     void resized() override;
 
@@ -186,7 +185,7 @@ protected:
     void comboBoxChanged (juce::ComboBox* c) override;
     void changeListenerCallback (juce::ChangeBroadcaster*) override;
     void parentHierarchyChanged() override;
-
+    
     ProcessorEditor& editor;
     Processor& slProc;
 

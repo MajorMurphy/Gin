@@ -278,7 +278,7 @@ void Processor::setCurrentProgram (int index)
     {
         auto p = programs[index];
 
-        if (! p->fullyLoaded )
+        if (! p->fullyLoaded)
             p->loadFromFile (p->getPresetFile (getProgramDirectory()), true);
 
         p->loadProcessor (*this);
@@ -493,7 +493,7 @@ juce::File Processor::getProgramDirectory()
 
 //==============================================================================
 
-void Processor::getStateInformation (juce::MemoryBlock& destData)
+juce::String Processor::getStateXml()
 {
     updateState();
 
@@ -506,7 +506,7 @@ void Processor::getStateInformation (juce::MemoryBlock& destData)
 
     for (auto p : getPluginParameters())
     {
-        if (! p->isMetaParameter())
+        if (! p->isMetaParameter() && ! juce::approximatelyEqual (p->getUserDefaultValue(), p->getUserValue()))
         {
             auto pstate = p->getState();
 
@@ -519,16 +519,27 @@ void Processor::getStateInformation (juce::MemoryBlock& destData)
         }
     }
 
+    return rootE->toString();
+}
+
+void Processor::getStateInformation (juce::MemoryBlock& destData)
+{
+    auto text = getStateXml();
+    
     juce::MemoryOutputStream os (destData, true);
-    auto text = rootE->toString();
     os.write (text.toRawUTF8(), text.getNumBytesAsUTF8());
 }
 
 void Processor::setStateInformation (const void* data, int sizeInBytes)
 {
-    juce::ScopedValueSetter<bool> (loadingState, true);
+    setStateXml (juce::String::fromUTF8 ((const char*)data, sizeInBytes));
+}
 
-    juce::XmlDocument doc (juce::String::fromUTF8 ((const char*)data, sizeInBytes));
+void Processor::setStateXml (const juce::String& text)
+{
+    juce::ScopedValueSetter<bool> svs (loadingState, true);
+
+    juce::XmlDocument doc (text);
     std::unique_ptr<juce::XmlElement> rootE (doc.getDocumentElement());
     if (rootE)
     {
@@ -574,6 +585,9 @@ void Processor::setStateInformation (const void* data, int sizeInBytes)
                 currentProgramName = {};
         }
 
+        for (auto pp : getPluginParameters())
+            pp->setUserValue (pp->getUserDefaultValue());
+
         juce::XmlElement* paramE = rootE->getChildByName ("param");
         while (paramE)
         {
@@ -586,8 +600,13 @@ void Processor::setStateInformation (const void* data, int sizeInBytes)
 
             paramE = paramE->getNextElementWithTagName ("param");
         }
+        
+        if (juce::MessageManager::getInstance()->isThisTheMessageThread())
+            for (auto pp : getPluginParameters())
+                pp->handleUpdateNowIfNeeded();
     }
     stateUpdated();
+    sendChangeMessage();
 
     lastStateLoad = juce::Time::getCurrentTime();
 }
