@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="w3tUb1" name="Demo" projectType="guiapp" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
+              cppLanguageStandard="20">
+  <MAINGROUP id="rPfjts" name="Demo">
+    <GROUP id="{D53A4BBD-B5F4-6BF9-5D9B-1E75C85119DF}" name="Resources">
+      <FILE id="KgzJGZ" name="1.webp" compile="0" resource="1" file="Resources/1.webp"/>
+      <FILE id="v9a5hU" name="2.webp" compile="0" resource="1" file="Resources/2.webp"/>
+      <FILE id="qaDxP7" name="Analog_PWM_Saw_01.wav" compile="0" resource="1"
+            file="Resources/Analog_PWM_Saw_01.wav"/>
+      <FILE id="PbNEP5" name="ballon.bmp" compile="0" resource="1" file="Resources/ballon.bmp"/>
+      <FILE id="kJ2uj3" name="ballon_8bit.bmp" compile="0" resource="1" file="Resources/ballon_8bit.bmp"/>
+      <FILE id="W8odx5" name="Castle.jpg" compile="0" resource="1" file="Resources/Castle.jpg"/>
+      <FILE id="Q1kWOf" name="CMakeLists.txt" compile="0" resource="1" file="Resources/CMakeLists.txt"/>
+      <FILE id="rIh4h0" name="icon.png" compile="0" resource="1" file="Resources/icon.png"/>
+      <FILE id="ASkOgt" name="IMG_1883.JPG" compile="0" resource="1" file="Resources/IMG_1883.JPG"/>
+      <FILE id="bw3NQg" name="Landscape_1.jpg" compile="0" resource="1" file="Resources/Landscape_1.jpg"/>
+      <FILE id="ArV2nu" name="Leaf.jpg" compile="0" resource="1" file="Resources/Leaf.jpg"/>
+      <FILE id="Mm1Zut" name="mountain.jpg" compile="0" resource="1" file="Resources/mountain.jpg"/>
+      <FILE id="AZy7hB" name="pencils.jpeg" compile="0" resource="1" file="Resources/pencils.jpeg"/>
+      <FILE id="BGsFMt" name="SVG_example_markup_grid.svg" compile="0" resource="1"
+            file="Resources/SVG_example_markup_grid.svg"/>
+    </GROUP>
+    <GROUP id="{298DB825-50C1-CEDD-E381-AFD9CC92FD89}" name="Source">
+      <FILE id="W9FiBg" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="zQ2h9q" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="V3ZCSc" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="gin" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="gin_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="gin_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="gin_gui" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="gin_location" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="gin_metadata" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="gin_network" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="gin_simd" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="gin_webp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+  <EXPORTFORMATS>
+    <VS2022 targetFolder="Builds/VisualStudio2022">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="Demo"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="Demo"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="gin_location" path="../../modules"/>
+        <MODULEPATH id="gin" path="../../modules"/>
+        <MODULEPATH id="gin_gui" path="../../modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="gin_simd" path="../../modules"/>
+        <MODULEPATH id="gin_network" path="../../modules"/>
+        <MODULEPATH id="gin_metadata" path="../../modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="gin_webp" path="../../modules"/>
+        <MODULEPATH id="gin_graphics" path="../../modules"/>
+        <MODULEPATH id="gin_dsp" path="../../modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../../JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2022>
+  </EXPORTFORMATS>
+</JUCERPROJECT>
