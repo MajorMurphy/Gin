@@ -24,7 +24,7 @@
   license:              BSD
   minimumCppStandard:   20
 
-  dependencies:         juce_core juce_graphics gin
+  dependencies:         juce_core juce_graphics yuzu_graphics gin
   OSXFrameworks:        Security
 
  END_JUCE_MODULE_DECLARATION
@@ -56,6 +56,7 @@
 //==============================================================================
 #include <juce_core/juce_core.h>
 #include <juce_graphics/juce_graphics.h>
+#include <yuzu_graphics/yuzu_graphics.h>
 
 #include <map>
 

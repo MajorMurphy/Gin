@@ -96,12 +96,12 @@ static bool loadJPEGMetadataFromStream (juce::OwnedArray<ImageMetadata>& metadat
     return metadata.size() > 0;
 }
 
-#if JUCE_LINK_LIBHEIF_CODE
+#if YUZU_LINK_LIBHEIF
 #include <libheif/heif.h>
 #endif
 static bool loadHEIFMetadataFromStream(juce::OwnedArray<ImageMetadata>& metadata, juce::InputStream& in)
 {
-#if JUCE_LINK_LIBHEIF_CODE
+#if YUZU_LINK_LIBHEIF
 
     juce::MemoryBlock encodedImageData(in.getNumBytesRemaining());
     in.read(encodedImageData.getData(), encodedImageData.getSize());
@@ -133,7 +133,7 @@ static bool loadHEIFMetadataFromStream(juce::OwnedArray<ImageMetadata>& metadata
     heif_context_free(ctx);
 
     return metadata.size() > 0;
-#else 
+#else
     jassertfalse;
     return false;
 #endif
@@ -198,20 +198,13 @@ bool ImageMetadata::getFromImage (juce::InputStream& is, juce::OwnedArray<ImageM
 {
     juce::JPEGImageFormat jpeg;
     juce::PNGImageFormat png;
-    juce::HEIFImageFormat heif;
+    yuzu::HEIFImageFormat heif;
 
     is.setPosition (0);
     if (jpeg.canUnderstand (is))
     {
         is.setPosition (0);
         return loadJPEGMetadataFromStream (metadata, is);
-    }
-
-    is.setPosition(0);
-    if (heif.canUnderstand(is))
-    {
-        is.setPosition(0);
-        return loadHEIFMetadataFromStream(metadata, is);
     }
 
     is.setPosition (0);
