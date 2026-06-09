@@ -4,7 +4,7 @@
  For more information visit www.rabiensoftware.com
 
  ==============================================================================*/
-using namespace jpeglibNamespace;
+using namespace ginJpeglibNamespace;
 using namespace pnglibNamespace;
 
 //==============================================================================
